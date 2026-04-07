@@ -1,44 +1,57 @@
-public class Activity
+// Since there are abstract methods, this could be considered an abstract class
+public abstract class Activity
 {
     // Attributes
+    protected const int SECONDS = 60;
     protected DateOnly _date;
     protected int _length;
-    protected int _speed;
-    protected int _distance;
-    protected int _pace;
+    protected string _activityType;
+    protected double _speed;
+    protected double _pace;
+    protected double _distance;
 
 
     // Constructor
-    Activity()
+    public Activity(string activity)
     {
-        
+        _activityType = activity;
     }
 
     // Getters
-    public virtual int GetSpeed()
-    {
-        _speed = (_distance / _length) * 60;
+    /* I use abstract here so that the derived methods can easily override these empty shells */
+    public abstract double GetDistance();
 
-        return _speed;
+    public abstract double GetSpeed();
+
+    public abstract double GetPace();
+
+    // Setters
+    public void SetDate(DateOnly date)
+    {
+        _date = date;
     }
 
-    public virtual int GetDistance()
+    public void SetLength(int length)
     {
-        _distance = _length / _pace;
-
-        return _distance;
+        _length = length;
     }
 
-    public virtual int GetPace()
-    {
-        _pace = _length / _distance;
-
-        return _pace;
-    }
-
+    // Summarizes all the data
     public void GetSummary()
     {
-        
+        // Call the three Getter methods first, which will work for each of the derived classes
+        _distance = GetDistance();
+        _speed = GetSpeed();
+        _pace = GetPace();
+
+        // Round distance, pace, and speed
+        _distance = Math.Round(_distance, 2); 
+        _speed = Math.Round(_speed, 2);
+        _pace = Math.Round(_pace, 2);
+
+
+        Console.WriteLine($"{_date} {_activityType} ({_length} Minutes) - Distance: {_distance} miles, Speed: {_speed} mph, Pace: {_pace} min per mile");
+        Console.WriteLine("");
     }
 
 

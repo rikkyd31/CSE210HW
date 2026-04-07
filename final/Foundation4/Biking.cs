@@ -1,16 +1,36 @@
 public class Biking : Activity
 {
-    // Attributes
-    
-
     // Constructor
-    public Biking() : base()
+    public Biking() : base("Biking")
     {
         
     }
 
-    public override int GetSpeed()
+    // Override the abstract GetDistance() method in the base Activity class.
+    public override double GetDistance()
     {
-        return _speed();
+        _distance = _length / (SECONDS / _speed);
+
+        return _distance;
+    }
+
+    // Override the abstract GetSpeed() method in the base Activity class.
+    public override double GetSpeed()
+    {
+        return _speed;
+    }
+
+    // Override the abstract GetPace() method in the base Activity class.
+    public override double GetPace()
+    {
+        _pace = SECONDS / _speed;
+
+        return _pace;
+    }
+
+    // Setter
+    public void SetSpeed(double speed)
+    {
+        _speed = speed;
     }
 }
